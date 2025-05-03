@@ -92,7 +92,11 @@ export default function InvoiceForm() {
             const totalValue = +(taxableValue + gst).toFixed(2);
 
             return {
-                ...item,
+                productName: item.productName,
+                hsnCode: item.hsnCode,
+                qty,
+                salePrice,
+                discount,
                 taxableValue: +taxableValue.toFixed(2),
                 gst,
                 totalValue,
