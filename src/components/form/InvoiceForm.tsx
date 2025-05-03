@@ -120,7 +120,7 @@ export default function InvoiceForm() {
             products: totals.calculatedProducts,
         };
         toast.success('Form submitted successfully', { autoClose: 3000 });
-        // reset()
+        reset()
         console.log("Final Payload:", payload);
     };
 
