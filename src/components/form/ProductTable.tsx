@@ -1,6 +1,6 @@
 
 import React from 'react'
-import { UseFormRegister, UseFormSetValue, FieldErrors } from 'react-hook-form';
+import { UseFormRegister, UseFormSetValue, FieldErrors, UseFieldArrayAppend } from 'react-hook-form';
 
 interface Product {
     name: string,
@@ -13,7 +13,7 @@ interface ProductField {
     hsnCode: string;
     qty: number;
     salePrice: number;
-    discount: number;
+    discount?: number;
 }
 
 interface props {
@@ -22,7 +22,6 @@ interface props {
     register: UseFormRegister<any>;
     setValue: UseFormSetValue<any>;
     remove: (index: number) => void;
-    append: (value: Partial<ProductField>) => void;
     errors: FieldErrors<{ products: ProductField[] }>;
     productsList: Product[];
 }
@@ -33,7 +32,6 @@ const ProductTable: React.FC<props> = ({
     register,
     setValue,
     remove,
-    append,
     errors,
     productsList }) => {
     return (
@@ -104,12 +102,7 @@ const ProductTable: React.FC<props> = ({
                 (errors.products?.[index]?.discount?.message && <span>Discount: {errors.products[index]?.discount?.message}</span>) ||
                 (errors.products?.[index]?.salePrice?.message && <span>SalePrice: {errors.products?.[index]?.salePrice?.message}</span>)
             }</span>
-            <button type="button"
-                onClick={() =>
-                    append({ productName: '', hsnCode: '', qty: 1, salePrice: 0, discount: 0 })}
-                className="btn mt-2 w-40 cursor-pointer hover:bg-blue-400 bg-blue-600">
-                Add Product
-            </button></div>
+        </div>
     )
 }
 

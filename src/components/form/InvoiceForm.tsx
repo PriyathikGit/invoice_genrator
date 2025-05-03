@@ -174,12 +174,18 @@ export default function InvoiceForm() {
                             register={register}
                             setValue={setValue}
                             remove={remove}
-                            append={append}
                             errors={errors}
                             productsList={productsList}
                         />
                     ))}
+                    <button type="button"
+                        onClick={() =>
+                            append({ productName: '', hsnCode: '', qty: 1, salePrice: 0, discount: 0 })}
+                        className="btn mt-2 w-40 cursor-pointer hover:bg-blue-400 bg-blue-600">
+                        Add Product
+                    </button>
                 </div>
+
 
                 {/* Summary */}
                 <div className="rounded">
@@ -213,7 +219,7 @@ export default function InvoiceForm() {
 
                 <button type="submit"
                     className="btn bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-400 cursor-pointer">Submit</button>
-            </form>
-        </div>
+            </form >
+        </div >
     );
 }
