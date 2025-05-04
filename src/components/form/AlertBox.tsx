@@ -14,7 +14,7 @@ const AlertBox: React.FC<AlertBoxProps> = ({ payload, setShowAlert }) => {
             mx-4 max-h-[80vh] overflow-auto shadow-lg">
                 <button
                     onClick={() => setShowAlert(false)}
-                    className="fixed right-8 hover:text-black text-lg cursor-pointer z-100"
+                    className="absolute right-8 hover:text-black text-lg cursor-pointer z-100"
                     aria-label="Close"
                 >
                     ✖
