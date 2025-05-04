@@ -54,7 +54,13 @@ export const invoiceSchema = z.object({
   customer: z.object({
     name: z.string().min(1, "Customer name required"),
     address: z.string().min(1, "Customer address required"),
-    gstin: z.string().optional(),
+    gstin: z
+      .string()
+      .regex(
+        /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[A-Z0-9]{1}[Z]{1}[A-Z0-9]{1}$/,
+        "Invalid GSTIN format"
+      )
+      .optional(),
   }),
   products: z.array(productSchema).min(1, "At least one product required"),
   paymentMethod: z.enum(["Cash", "Online Transfer", "On Credit"]),

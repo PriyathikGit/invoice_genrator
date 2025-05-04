@@ -6,6 +6,7 @@ import { z } from 'zod';
 import { useEffect, useState } from 'react';
 import ProductTable from './ProductTable';
 import { toast } from 'react-toastify';
+import AlertBox from './AlertBox';
 
 type InvoiceFormData = z.infer<typeof invoiceSchema>;
 
@@ -16,6 +17,10 @@ const productsList = [
 ];
 
 export default function InvoiceForm() {
+
+    const [jsonData, setJsonData] = useState({})
+    const [showAlert, setShowAlert] = useState(false)
+
     const [totals, setTotals] = useState<{
         totalTaxableValue: number; // types
         totalGst: number;
@@ -116,7 +121,6 @@ export default function InvoiceForm() {
 
     }, [watchedProducts]);
 
-
     const onSubmit = (data: InvoiceFormData) => {
         const payload = {
             ...data,
@@ -124,6 +128,8 @@ export default function InvoiceForm() {
             products: totals.calculatedProducts,
         };
         toast.success('Form submitted successfully', { autoClose: 3000 });
+        setJsonData(payload)
+        setShowAlert(true)
         reset()
         console.log("Final Payload:", payload);
     };
@@ -161,6 +167,7 @@ export default function InvoiceForm() {
                     <p className="text-red-500">{errors.customer?.address?.message}</p>
 
                     <input {...register('customer.gstin')} placeholder="GSTIN (optional)" className="input" />
+                    <p className="text-red-500">{errors.customer?.gstin?.message}</p>
                 </div>
 
                 {/* Product Table */}
@@ -217,8 +224,18 @@ export default function InvoiceForm() {
                     <textarea {...register('narration')} placeholder="remarks" className="input w-full h-20" />
                 </div>
 
-                <button type="submit"
-                    className="btn bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-400 cursor-pointer">Submit</button>
+                <button
+                    type="submit"
+                    className="btn bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-400 cursor-pointer">
+                    Submit
+                </button>
+                {
+                    showAlert && (
+                        // <div className="fixed inset-0 backdrop-blur-sm bg-black bg-opacity-30 z-50 flex justify-center items-center">
+                        <AlertBox payload={jsonData} setShowAlert={setShowAlert} />
+                        // </div>
+                    )
+                }
             </form >
         </div >
     );

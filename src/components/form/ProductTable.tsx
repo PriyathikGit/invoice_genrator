@@ -1,6 +1,6 @@
 
 import React from 'react'
-import { UseFormRegister, UseFormSetValue, FieldErrors, UseFieldArrayAppend } from 'react-hook-form';
+import { UseFormRegister, UseFormSetValue, FieldErrors } from 'react-hook-form';
 
 interface Product {
     name: string,
